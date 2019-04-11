@@ -156,6 +156,7 @@ public class Resources {
    */
   public static Reader getResourceAsReader(String resource) throws IOException {
     Reader reader;
+    //判断是否设置字符集，如果设置了字符集，根据设置的字符集编码
     if (charset == null) {
       reader = new InputStreamReader(getResourceAsStream(resource));
     } else {

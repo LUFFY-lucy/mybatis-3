@@ -66,7 +66,7 @@ class GeneralExceptionsTest {
         ScriptingException.class
     };
     for (Class<?> exceptionType : exceptionTypes) {
-      testExceptionConstructors(exceptionType);
+        testExceptionConstructors(exceptionType);
     }
 
   }

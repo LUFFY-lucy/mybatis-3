@@ -75,6 +75,7 @@ public class ClassLoaderWrapper {
    * @return the stream or null
    */
   public InputStream getResourceAsStream(String resource, ClassLoader classLoader) {
+    //真正的转换代码
     return getResourceAsStream(resource, getClassLoaders(classLoader));
   }
 
@@ -109,6 +110,8 @@ public class ClassLoaderWrapper {
    * @return the resource or null
    */
   InputStream getResourceAsStream(String resource, ClassLoader[] classLoader) {
+
+
     for (ClassLoader cl : classLoader) {
       if (null != cl) {
 
