@@ -68,6 +68,15 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class XmlConfigBuilderTest {
 
   @Test
+  void shouldSuccessfullyXMLConfigFile() throws Exception {
+    String resource = "org/apache/ibatis/builder/MapperConfig.xml";
+    try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
+      XMLConfigBuilder builder = new XMLConfigBuilder(inputStream);
+      Configuration config = builder.parse();
+    }
+  }
+
+  @Test
   void shouldSuccessfullyLoadMinimalXMLConfigFile() throws Exception {
     String resource = "org/apache/ibatis/builder/MinimalMapperConfig.xml";
     try (InputStream inputStream = Resources.getResourceAsStream(resource)) {

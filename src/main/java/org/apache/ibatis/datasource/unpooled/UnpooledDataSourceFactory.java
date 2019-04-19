@@ -33,7 +33,7 @@ public class UnpooledDataSourceFactory implements DataSourceFactory {
   private static final int DRIVER_PROPERTY_PREFIX_LENGTH = DRIVER_PROPERTY_PREFIX.length();
 
   protected DataSource dataSource;
-
+  // 创建 UnpooledDataSource 对象
   public UnpooledDataSourceFactory() {
     this.dataSource = new UnpooledDataSource();
   }

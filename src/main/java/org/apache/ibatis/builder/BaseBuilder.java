@@ -36,6 +36,12 @@ public abstract class BaseBuilder {
   protected final TypeAliasRegistry typeAliasRegistry;
   protected final TypeHandlerRegistry typeHandlerRegistry;
 
+  /**
+   * 构造 BaseBuilder
+   * 初始化 Configuration
+   * 从 Configuration 中获取 两个注册表 TypeAliasRegistry
+   * @param configuration
+   */
   public BaseBuilder(Configuration configuration) {
     this.configuration = configuration;
     this.typeAliasRegistry = this.configuration.getTypeAliasRegistry();
@@ -46,10 +52,23 @@ public abstract class BaseBuilder {
     return configuration;
   }
 
+  /**
+   * 创建正则表达式
+   *
+   * @param regex 指定表达式
+   * @param defaultValue 默认表达式
+   * @return 正则表达式
+   */
   protected Pattern parseExpression(String regex, String defaultValue) {
     return Pattern.compile(regex == null ? defaultValue : regex);
   }
 
+  /**
+   * #xxxValueOf(...) 方法，将字符串转换成对应的数据类型的值。
+   * @param value
+   * @param defaultValue
+   * @return
+   */
   protected Boolean booleanValueOf(String value, Boolean defaultValue) {
     return value == null ? defaultValue : Boolean.valueOf(value);
   }
@@ -63,6 +82,12 @@ public abstract class BaseBuilder {
     return new HashSet<>(Arrays.asList(value.split(",")));
   }
 
+  /**
+   * 解析对应的 JdbcType 类型
+   * String 类型的JdbcType 转换为 JdbcType 类型
+   * @param alias
+   * @return
+   */
   protected JdbcType resolveJdbcType(String alias) {
     if (alias == null) {
       return null;
@@ -74,6 +99,11 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 解析对应的 ResultSetType 类型
+   * @param alias
+   * @return
+   */
   protected ResultSetType resolveResultSetType(String alias) {
     if (alias == null) {
       return null;
@@ -85,6 +115,12 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 解析对应的 ParameterMode 类型
+   * 目测应该是存储过程中的 IN OUT INOUT 解析
+   * @param alias
+   * @return
+   */
   protected ParameterMode resolveParameterMode(String alias) {
     if (alias == null) {
       return null;
@@ -96,6 +132,11 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 创建指定对象
+   * @param alias
+   * @return
+   */
   protected Object createInstance(String alias) {
     Class<?> clazz = resolveClass(alias);
     if (clazz == null) {
@@ -108,6 +149,12 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 调用 #resolveClass(String alias) 方法，获得对应的类型
+   * @param alias
+   * @param <T>
+   * @return
+   */
   protected <T> Class<? extends T> resolveClass(String alias) {
     if (alias == null) {
       return null;
@@ -119,6 +166,12 @@ public abstract class BaseBuilder {
     }
   }
 
+  /**
+   * 获得或创建对应的 TypeHandler 对象
+   * @param javaType
+   * @param typeHandlerAlias
+   * @return
+   */
   protected TypeHandler<?> resolveTypeHandler(Class<?> javaType, String typeHandlerAlias) {
     if (typeHandlerAlias == null) {
       return null;
@@ -145,6 +198,12 @@ public abstract class BaseBuilder {
     return handler;
   }
 
+  /**
+   * //实际调用的是 TypeAliasRegistry 的 resolveAlias 方法创建对象
+   * @param alias
+   * @param <T>
+   * @return
+   */
   protected <T> Class<? extends T> resolveAlias(String alias) {
     return typeAliasRegistry.resolveAlias(alias);
   }
